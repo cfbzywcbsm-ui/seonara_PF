@@ -87,48 +87,75 @@ body {
     padding-bottom: 80px; /* 푸터와 너무 붙지 않도록 아래 여백 추가 */
 }
 
-/* 아이콘 네비게이션 컨테이너 (버튼 가로 정렬 및 좌우 분리) */
+/* ================================================= */
+/* 메인 아이콘 네비게이션 (두둥실 + 확대 + 텍스트 라벨) */
+/* ================================================= */
+
+/* 아이콘 네비게이션 컨테이너 */
 .icon-nav-container {
     display: flex;
-    /* 전체 컨테이너 폭을 넓혀서 좌우 정렬이 가능하도록 설정 */
-    width: 100%; 
-    max-width: 1000px; /* 전체 최대 폭을 설정하여 너무 넓어지지 않게 함 */
-    
-    /* *** 핵심: 좌우 분리 정렬을 위해 space-between 사용 *** */
-    /* 프로젝트(좌측 끝) / 어바웃-컨택트 그룹(우측)을 분리합니다. */
-    justify-content: space-between; 
-    align-items: flex-end; /* 아이콘을 컨테이너 하단에 정렬 (세로 정렬) */
+    justify-content: center;
+    align-items: center;
+    gap: 60px; 
+    margin-top: 80px;
 }
 
-/* 개별 아이콘 버튼 그룹핑 (어바웃과 컨택트를 이웃하게 배치) */
+/* 오른쪽 그룹 레이아웃 유지 */
 .right-icon-group {
     display: flex;
-    gap: 30px; /* 어바웃과 컨택트 아이콘 사이 간격 */
+    gap: 60px;
 }
 
-/* 개별 아이콘 버튼 스타일 */
+/* 개별 아이콘 링크 (텍스트를 중앙에 배치하기 위해 flex-column 추가) */
 .nav-icon-link {
-    display: block; 
-    text-decoration: none; 
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.4s ease;
+    background: none; /* 원형 테두리 제거 */
 }
 
-.nav-icon-link:hover {
-    transform: scale(1.05); /* 크기 이미 크므로 덜 확대 */
-    opacity: 0.9; 
-}
-
+/* 아이콘 이미지 기본 크기 */
 .nav-icon-img {
-    width: 160px; /* *** 크기 증가: 160px로 변경 *** */
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid transparent; 
-    transition: border-color 0.3s ease;
+    width: 150px; 
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease; /* 확대 애니메이션 */
 }
+
+/* 호버 시 나타날 글자 스타일 (기본적으로 투명) */
+.icon-label {
+    margin-top: 15px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #ebebeb; /* 텍스트 색상 */
+    opacity: 0; /* 평소엔 숨김 */
+    transform: translateY(10px); /* 살짝 아래에 위치 */
+    transition: all 0.3s ease;
+}
+
+/* --- 💥 호버 시 복합 효과 시작 --- */
 
 .nav-icon-link:hover .nav-icon-img {
-    border-color: #8B4513; 
+    /* 1. 이미지 크기 확대 */
+    transform: scale(1.15); 
+    /* 2. 두둥실 애니메이션 적용 */
+    animation: floating 1.5s ease-in-out infinite;
+}
+
+.nav-icon-link:hover .icon-label {
+    /* 3. 숨겨진 텍스트 나타남 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 두둥실 애니메이션 (이미 커진 상태인 1.15배를 기준으로 움직임) */
+@keyframes floating {
+    0% { transform: translateY(0) scale(1.15); }
+    50% { transform: translateY(-15px) scale(1.15); }
+    100% { transform: translateY(0) scale(1.15); }
 }
 
 /* 3. 푸터 스타일 */
